@@ -12,8 +12,6 @@ class OpenrestyAT11932 < Formula
   version OPENRESTY_VERSION
   sha256 KONG_BUILD_TOOLS_SHA_SUM
 
-  keg_only :versioned_formula
-
   option "with-debug", "Compile with support for debug logging but without proper gdb debugging symbols"
 
   depends_on "coreutils"
