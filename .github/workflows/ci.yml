@@ -14,7 +14,6 @@ on:
       - master
 
   workflow_dispatch:
-  workflow_call:
 
 jobs:
   test:
@@ -103,12 +102,12 @@ jobs:
             --online \
             kong/kong/${{ steps.changes.outputs.formulae }}
 
-      - name: Brew Install Kong
-        if: contains(steps.changes.outputs.formulae, 'kong')
-        run: brew install -d -v kong/kong/kong
-
-      - name: Run Kong
+      - name: Run Install/Run Kong
         run: |
+          set -x
+
+          brew install -d -v kong/kong/kong
+
           # ensure 'resty' is on path for kong CLI
           command -v resty
 
