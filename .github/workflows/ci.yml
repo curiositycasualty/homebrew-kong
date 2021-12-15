@@ -105,8 +105,16 @@ jobs:
 
       - name: Brew Install Kong
         if: contains(steps.changes.outputs.formulae, 'kong')
+        run: brew install -d -v kong/kong/kong
+
+      - name: Run Kong
+        if: contains(steps.changes.outputs.formulae, 'kong')
         run: |
-          brew install -v kong/kong/kong
+          # ensure 'resty' is on path for kong CLI
+          export PATH="$(
+            # /usr/local/Cellar/openresty@1.19.3.2/1.19.3.2/openresty/bin
+            echo $(brew --cellar kong/kong/openresty)/*/openresty/bin
+          ):${PATH}"
 
           kong config init
 
